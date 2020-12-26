@@ -62,8 +62,11 @@ def plot_hist(x,y,bins=1000):
     X, Y = np.meshgrid(xedges, yedges)
     colors_list=["white","#08F593","#00A35F","#F03513"]
     cmap= colors.ListedColormap(colors_list)  
-    cf=ax.pcolormesh(X,Y,img*100,cmap=cm.bone,)
-
+    fig=plt.figure()
+    plt.axis('off')
+    plt.style.use('dark_background')
+    ax = fig.add_subplot(1,1,1)
+    ax.pcolormesh(X,Y,img*100,cmap=cm.gray,)
 
     
 def plot3d(x,y,z):
