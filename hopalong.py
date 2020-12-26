@@ -55,6 +55,14 @@ def plot(x,y,name="test"):
     plt.scatter(x,y,color="white",alpha=0.03,s=1)
     plt.savefig("%s"%(name),dip=150)
 
+def plot_hist(x,y,bins=1000):
+    heatmap, xedges, yedges = np.histogram2d(x, y, bins=bins)
+    img=heatmap.T
+    extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+    X, Y = np.meshgrid(xedges, yedges)
+    colors_list=["white","#08F593","#00A35F","#F03513"]
+    cmap= colors.ListedColormap(colors_list)  
+    cf=ax.pcolormesh(X,Y,img*100,cmap=cm.bone,)
 
 
     
@@ -76,8 +84,8 @@ def run(n,m,scale,a=2,b=2.5,c=2,d=0.25,e=1.5,f=0.5,threeD=False):
             x,y=transform(x,y,a,b,c,d)              
             count=count+1  
             #plot(x,y)    #plot here if you wish to see the trasient states
-        #plot(x,y)
-        plot_hist(x,y)
+        plot(x,y)
+        #plot_hist(x,y)
     if threeD:
         x,y=points(n,scale)
         z=np.random.uniform(0,1,n)/scale
@@ -113,5 +121,5 @@ def animate(n,m,scale,frames):
         
         
 #animate(100000,100,100,10)
-run(1000000,100,100)
+run(100000,100,100)
 #gif()
