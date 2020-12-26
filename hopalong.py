@@ -11,12 +11,14 @@ import matplotlib.pyplot as plt
 import time
 from mpl_toolkits.mplot3d import Axes3D
 from mayavi.mlab import *
-from mayavi import mla
+
 import imageio
+import matplotlib.cm as cm
+from matplotlib import colors
 
 
 def gif():
-    'turns images in the folder frames_path into a gif'
+    """turns images in the folder frames_path into a gif"""
     n=488
     gif_path = "animation2.gif"
     frames_path = "./imagess/{i}.png"
@@ -54,17 +56,18 @@ def plot(x,y,name="test"):
     plt.savefig("%s"%(name),dip=150)
 
 
+
     
 def plot3d(x,y,z):
-    'uses mayavi for a fast interactive 3d plot'
+    """uses mayavi for a fast interactive 3d plot"""
     points3d(x, y, z,color=(1,1,1),opacity=0.09,mode='point')
     
-def run(n,m,scale,a=2,b=2.5,c=2,d=0.25,e=1.5,f=0.5,3d=False):
+def run(n,m,scale,a=2,b=2.5,c=2,d=0.25,e=1.5,f=0.5,threeD=False):
     """runs the transform m times on an array of n numbers, plots the final
        distribution.
-       """
+    """
     s=time.time()
-    if not 3d:
+    if not threeD:
         x,y=points(n,scale)
         count=0
         X=np.zeros(n)
@@ -73,8 +76,9 @@ def run(n,m,scale,a=2,b=2.5,c=2,d=0.25,e=1.5,f=0.5,3d=False):
             x,y=transform(x,y,a,b,c,d)              
             count=count+1  
             #plot(x,y)    #plot here if you wish to see the trasient states
-        plot(x,y)    
-    if 3D:
+        #plot(x,y)
+        plot_hist(x,y)
+    if threeD:
         x,y=points(n,scale)
         z=np.random.uniform(0,1,n)/scale
         count=0
@@ -91,7 +95,7 @@ def run(n,m,scale,a=2,b=2.5,c=2,d=0.25,e=1.5,f=0.5,3d=False):
 
 
 def animate(n,m,scale,frames):
-    'use if you want to smoothly vary params of transform'
+    """use if you want to smoothly vary params of transform"""
     a=np.linspace(0,10,frames)
     b=np.linspace(0,12,frames)
     c=np.linspace(0,10,frames)
